@@ -1,10 +1,21 @@
 # WeatherApp
+It's shows the weather details of any city with the help of openweathermap.Hosted in weather-mapp.firebaseapp.com
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+## Tech Stack
+-- Angular 7
+-- Bootstrap css (loaded the bootstrap css locally, offline purposes)
+-- openweathermap - current weather data API
+
+## Setup
+
+`npm install` to install all the dependencies
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+**Note:** when run locally, use your own api key at the line of 18 in home.service.ts file.
+
 
 ## Code scaffolding
 
