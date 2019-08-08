@@ -1,5 +1,5 @@
 # WeatherApp
-It's shows the weather details of any city with the help of openweathermap.Hosted in weather-mapp.firebaseapp.com
+It's shows the weather details of any city with the help of openweathermap.Hosted in https://weather-mapp.firebaseapp.com
 
 ## Tech Stack
 - Angular 7
