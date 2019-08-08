@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
   setWeatherObject(response, index: number) {
     let weatherObject = new WeatherModel();
     weatherObject.cityName = response.name;
-    ['description','main','icon'].forEach((field =>{
+    ['description', 'main', 'icon'].forEach((field => {
       weatherObject[field] = response.weather[0][field]
     }))
     weatherObject.tempFahrenheit = response.main.temp;
