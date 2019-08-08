@@ -12,17 +12,38 @@ export class HomeComponent implements OnInit {
 
   cityArray: CityModel[] = [];
   showTextBox: boolean[] = [];
-  loader = false
+  loader = false;
+  cityUpdateSubscription: Subscription;
   autoUpdateSubscription: Subscription = null;
 
-  constructor(private service: HomeService) { }
+  constructor(private service: HomeService) {
+    this.cityUpdateSubscription = this.service.getCityDetails().subscribe((res) => {
+      if (res[0] == "add") {
+        this.addCity(res[1], true)
+        if (!this.autoUpdateSubscription) {
+          this.autoUpdate()
+        }
+      } else if (res[0] == 'edit') {
+        this.editCity(res[1])
+      } else if (res[0] == 'update') {
+        this.updateCityDetails(res[1])
+      } else if (res[0] == "delete") {
+        this.removeCity(res[1])
+      } else if (res[0] == "close") {
+        this.setShowTextBox(res[1], false)
+      }
+    })
+  }
 
   ngOnInit() {
     for (let i = 0; i < 9; i++) {
       this.cityArray.push(new CityModel());
       let storedValue = localStorage.getItem("city[" + i + "]")
-      if (storedValue)
+      if (storedValue) {
         this.cityArray[i] = JSON.parse(storedValue)
+        if (!this.autoUpdateSubscription && navigator.onLine)
+          this.autoUpdate()
+      }
     }
   }
 
@@ -32,14 +53,11 @@ export class HomeComponent implements OnInit {
     this.cityArray[index].showTextBox = value
   }
 
-  addCity(index: number) {
-    this.loader = true;
+  addCity(index: number, value: boolean) {
+    this.loader = value;
     this.service.getWeather(this.cityArray[index].inputCity).subscribe((res: any) => {
       this.setWeatherObject(res, index);
       this.loader = false;
-      if (!this.autoUpdateSubscription) {
-        this.autoUpdate()
-      }
     }, error => {
       this.loader = false;
       if (error.error.cod === '404') {
@@ -53,6 +71,11 @@ export class HomeComponent implements OnInit {
     this.cityArray[index].inputCity = this.cityArray[index].weatherDetails.cityName
   }
 
+  updateCityDetails(index: number) {
+    let element = this.cityArray[index]
+    element.weatherDetails.cityName === element.inputCity ? this.cityArray[index].showTextBox = false : this.addCity(index, true)
+  }
+
   removeCity(index) {
     this.cityArray[index] = new CityModel();
     this.cityArray[index].showTextBox = false
@@ -64,20 +87,12 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem("city[" + index + "]")
   }
 
-  updateCityDetails(index: number) {
-    let element = this.cityArray[index]
-    if (element.weatherDetails.cityName === element.inputCity)
-      this.cityArray[index].showTextBox = false
-    else
-      this.addCity(index)
-  }
-
   autoUpdate() {
     this.autoUpdateSubscription = interval(300000)
       .subscribe((val) => {
         for (let index = 0; index < this.cityArray.length; index++) {
           if (this.cityArray[index].cityFound)
-            this.addCity(index)
+            this.addCity(index, false)
         }
       });
   }
@@ -100,6 +115,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    if (this.cityUpdateSubscription)
+      this.cityUpdateSubscription.unsubscribe()
     if (this.autoUpdateSubscription)
       this.autoUpdateSubscription.unsubscribe()
   }

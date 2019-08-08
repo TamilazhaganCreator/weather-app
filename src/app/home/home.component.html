@@ -1,40 +1,16 @@
 <div class="container">
-  <div class="row mar-top">
-    <div class="col-6 col-md-4 nopad" *ngFor="let city of cityArray;let _index = index;">
+  <div class="row mar-top-1">
+    <div class="col-12 col-md-6 col-lg-4 nopad" *ngFor="let city of cityArray;let _index = index;">
       <div class="panels">
-        <div *ngIf="city.cityFound && !city.showTextBox" id="weather-panel" [ngStyle]="{'background-image': 'url(assets/' + city.weatherDetails.icon + '.svg)'}">
-          <div class="edit" (click)="editCity(_index)">Edit</div>
-          <div class="left-align">
-            <div class="city-title">{{city.weatherDetails.cityName}}</div>
-            <div>{{city.weatherDetails.main}} - <span
-                style="font-size: .9rem;">{{city.weatherDetails.description}}</span></div>
-          </div>
-          <div class="weather-data">
-            <div>
-              {{city.weatherDetails.tempCelsius}} °C / {{city.weatherDetails.tempFahrenheit }} °F<br />
-              Humidity: {{city.weatherDetails.humidity}}%<br />
-              Wind: {{city.weatherDetails.humidity}}km/h<br />
-            </div>
-          </div>
+        <div *ngIf="city.cityFound && !city.showTextBox">
+          <app-cityweatherdetails [city]="city" [index]="_index"></app-cityweatherdetails>
         </div>
         <div (click)="setShowTextBox(_index,true)" *ngIf="!city.cityFound && !city.showTextBox">
           <img src="../assets/plus.svg" class="icon icon-max">
           <div>Add a City </div>
         </div>
         <div *ngIf="city.showTextBox">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-            (click)="setShowTextBox(_index,false)">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="form-group">
-            <input type="text" class="form-control" [(ngModel)]="city.inputCity" id="cityName"
-              placeholder="Enter city name" autofocus (keydown.enter)="addCity(_index)">
-            <small *ngIf="city.showErrorMsg" id="cityName" class="form-text text-muted">City not found</small>
-          </div>
-          <button type="button" class="btn btn-secondary" *ngIf="city.cityFound" (click)="removeCity(_index)">
-            <img src="assets/rubbish-bin.svg" class="icons-max icons-mini"></button>
-          <button type="button" class="btn btn-primary" *ngIf="city.cityFound" (click)="updateCityDetails(_index)">
-            <img src="assets/refresh.svg" class="icons-max icons-mini"></button>
+          <app-addcity [city]="city" [index]="_index"></app-addcity>
         </div>
       </div>
     </div>

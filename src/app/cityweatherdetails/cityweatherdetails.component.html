@@ -1,0 +1,14 @@
+<div id="weather-panel" [ngStyle]="{'background-image': 'url(assets/' + city.weatherDetails.icon + '.svg)'}">
+  <div class="btn btn-secondary edit" (click)="editCity()">Edit</div>
+  <div class="left-align">
+    <div class="city-title">{{city.weatherDetails.cityName}}</div>
+    <div>{{city.weatherDetails.main}} - <span style="font-size: .9rem;">{{city.weatherDetails.description}}</span></div>
+  </div>
+  <div class="weather-data">
+    <div>
+      {{city.weatherDetails.tempCelsius}} °C / {{city.weatherDetails.tempFahrenheit }} °F<br />
+      Humidity: {{city.weatherDetails.humidity}}%<br />
+      Wind: {{city.weatherDetails.humidity}}km/h<br />
+    </div>
+  </div>
+</div>
