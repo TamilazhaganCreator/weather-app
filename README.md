@@ -1,6 +1,9 @@
 # WeatherApp
 It's shows the weather details of any city with the help of openweathermap.Hosted in https://weather-mapp.firebaseapp.com
 
+## Description
+It's a mini weather app with 9 panels. We can add the city by clicking the panel. After entering the city name, then press **ENTER** key to get the weather details and they will be shown to the user. Use the Edit button to change or delete the city in the panel. The weather details of each city will be auto updated for every 5 minutes. Even when offline, it shows the last weather details of the city.
+
 ## Tech Stack
 - Angular 7
 - Bootstrap css (loaded the bootstrap css locally, offline purposes)
