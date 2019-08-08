@@ -1,10 +1,24 @@
 # WeatherApp
+It's shows the weather details of any city with the help of openweathermap.Hosted in https://weather-mapp.firebaseapp.com
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+## Description
+It's a mini weather app with 9 panels. We can add the city by clicking the panel. After entering the city name, then press **ENTER** key to get the weather details and they will be shown to the user. Use the Edit button to change or delete the city in the panel. The weather details of each city will be auto updated for every 5 minutes. Even when offline, it shows the last weather details of the city.
+
+## Tech Stack
+- Angular 7
+- Bootstrap css (loaded the bootstrap css locally, offline purposes)
+- openweathermap - current weather data API
+
+## Setup
+
+`npm install` to install all the dependencies
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+**Note:** when run locally, use your own api key at the line of 18 in home.service.ts file.
+
 
 ## Code scaffolding
 
