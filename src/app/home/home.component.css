@@ -46,6 +46,7 @@
 .spinner-border {
   width: 2.4rem;
   height: 2.4rem;
+  color: #563d7c !important;
 }
 
 .nopad {
